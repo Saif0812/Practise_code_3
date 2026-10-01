@@ -1,0 +1,185 @@
+/* ------------ RESET ------------ */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+/* ------------ BASE ------------ */
+body {
+  font-family: monospace;
+  height: 100%;
+  background: #fafafa;
+  color: #333;
+}
+
+h1 {
+  width: 100%;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* ------------ CONTAINER ------------ */
+.container {
+  height: 100%;
+  width: 100%;
+  max-width: 570px;
+  margin: 0 auto;
+  padding: 60px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* ------------ FORM ------------ */
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form label {
+  font-size: 14px;
+}
+
+.form input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid rgb(232, 232, 232);
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.form-submit {
+  align-self: flex-end;
+  outline: none;
+  border: 1px solid rgb(232, 232, 232);
+  background-color: rgb(37, 177, 60);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 36px;
+  padding: 0 16px;
+}
+
+.form-submit:hover {
+  background-color: rgb(32, 150, 52);
+}
+
+.form-submit:focus {
+  box-shadow: 0 0 0 0.5px rgb(153, 153, 153);
+}
+
+/* ------------ CARDS ------------ */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+  width: 100%;
+  list-style: none;
+}
+
+.card-item {
+  width: 100%;
+  padding: 12px 20px;
+  border: 1px solid rgb(232, 232, 232);
+  background-color: white;
+  border-radius: 5px;
+
+  /* Fade-in animation */
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tag-error {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  color: #d9534f;
+  font-weight: bold;
+}
+
+/* ------------ RETRY BUTTON ------------ */
+.retry-btn {
+  margin-top: 15px;
+  padding: 10px 16px;
+  background: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.retry-btn:hover {
+  background: #357ac8;
+}
+
+/* ------------ LOADING SPINNER ------------ */
+.loading {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ddd;
+  border-top-color: #4a90e2;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 20px auto;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ------------ UTILITIES ------------ */
+.is-element-hidden {
+  display: none;
+}
+
+/* ------------ RESPONSIVE ------------ */
+@media (max-width: 620px) {
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 40px 20px;
+  }
+
+  .form {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .form-submit {
+    width: 100%;
+    align-self: stretch;
+    text-align: center;
+  }
+}

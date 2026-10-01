@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/main.css">
+  <title>Checking user's</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Checking JsonPlaceholder Endpoint ✌️</h1>
+
+    <form id="form" class="form">
+      <label for="userId">User ID:</label>
+      <input type="text" id="userId" name="userId" placeholder="Enter User ID number" required>
+      <button type="submit" class="form-submit">Go</button>
+    </form>
+
+    <h3>User info:</h3>
+    <ul id="cards" class="cards">
+      <!-- Dynamically generated list will appear here -->
+    </ul>
+
+    <!-- Loading spinner -->
+    <div id="loading" class="loading hidden"></div>
+  </div>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+
+</html>
