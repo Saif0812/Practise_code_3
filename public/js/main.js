@@ -1,6 +1,7 @@
 const form = document.getElementById("form");
 const cards = document.getElementById("cards");
 const loading = document.getElementById("loading");
+const welcomeUser = document.getElementById("welcomeUser");
 
 function showLoading() {
   loading.classList.remove("hidden");
@@ -13,53 +14,88 @@ function hideLoading() {
 
 function handleHttpError(response) {
   hideLoading();
+  welcomeUser.textContent = "";
   renderError({
     message: `We couldn't load the user details. Error code: ${response.status}.`
   });
 }
 
 function renderError(error) {
-  cards.innerHTML = `
-    <li class="tag-error">${error?.message || "Unexpected Error."}</li>
-    <button id="retry" class="retry-btn">Try Again</button>
-  `;
+
+  welcomeUser.textContent = "";
+  cards.innerHTML = `<li class="tag-error">${error?.message || "Unexpected Error."}</li><button id="retry" class="retry-btn">Try Again</button>`;
   document.getElementById("retry").addEventListener("click", fetchRandom);
+
   form.reset();
 }
 
+async function showWelcomeUser(name) {
+
+  try {
+    const response = await fetch("/api/welcome", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name
+      })
+    });
+
+    const data = await response.json();
+    welcomeUser.textContent = data.message;
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function fetchRandom() {
+
   showLoading();
+
   try {
     const response = await fetch("/api/random");
 
-    if (!response.ok) 
+    if (!response.ok)
       return handleHttpError(response);
 
-
     const data = await response.json();
+
+    // Show welcome message for random user
+    await showWelcomeUser(data.name);
+
     hideLoading();
     renderCard(data);
 
   } catch (error) {
     hideLoading();
+    welcomeUser.textContent = "";
     renderError(error);
   }
 }
 
 async function fetchFiltered(id) {
   showLoading();
-  try {
-    const response = await fetch(`/api/filter?id=${encodeURIComponent(id)}`);
 
-    if (!response.ok) 
+  try {
+    const response = await fetch(`/api/filter?id=${encodeURIComponent(id)}`
+    );
+
+    if (!response.ok)
       return handleHttpError(response);
 
     const data = await response.json();
+
+    // User exists, show welcome message
+    await showWelcomeUser(data.name);
+
     hideLoading();
     renderCard(data);
 
   } catch (error) {
     hideLoading();
+    welcomeUser.textContent = "";
     renderError(error);
   }
 }
@@ -117,10 +153,10 @@ async function handleFormSubmit(e) {
   const userId = document.getElementById("userId").value.trim();
   const num = Number(userId);
 
-  // if (!Number.isInteger(num)) {
-  //   renderError({ message: "Invalid User ID. User ID should be number." });
-  //   return;
-  // }
+   if (!Number.isInteger(num)) {
+     renderError({ message: "Invalid User ID. User ID should be number." });
+     return;
+   }
 
   await fetchFiltered(num);
   document.getElementById("userId").value = "";

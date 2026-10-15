@@ -86,6 +86,14 @@ app.get("/api/filter", validateUserId, async (req, res, next) => {
   }
 });
 
+app.post("/api/welcome", (req, res) => {
+  const { name } = req.body;
+
+  res.json({
+    message: `Welcome ${name}`
+  });
+});
+
 // ---------- GLOBAL ERROR HANDLER ----------
 app.use((err, req, res, next) => {
   console.error("Global Error Handler:", err.message);
