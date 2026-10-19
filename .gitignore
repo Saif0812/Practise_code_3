@@ -1,6 +1,8 @@
 node_modules/
 .idea
 package-lock.json
+launch.json
+.vscode/
 
 # Playwright
 /test-results/
@@ -8,3 +10,4 @@ package-lock.json
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+/backup

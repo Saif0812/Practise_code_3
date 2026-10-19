@@ -96,11 +96,17 @@ app.post("/api/welcome", (req, res) => {
 
 // ---------- GLOBAL ERROR HANDLER ----------
 app.use((err, req, res, next) => {
-  console.error("Global Error Handler:", err.message);
+
+  console.error({
+    message: err.message,
+    code: err.code,
+    status: err.status
+  });
 
   res.status(err.status || 500).json({
     error: err.message || "Internal Server Error"
   });
+
 });
 
 // ---------- SERVER ----------

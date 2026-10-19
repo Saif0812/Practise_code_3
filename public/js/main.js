@@ -75,19 +75,25 @@ async function fetchRandom() {
   }
 }
 
+let requestId = 0;
 async function fetchFiltered(id) {
-  showLoading();
 
+  const currentRequestId = ++requestId;
+
+  showLoading();
+  
   try {
-    const response = await fetch(`/api/filter?id=${encodeURIComponent(id)}`
-    );
+    const response = await fetch(`/api/filter?id=${encodeURIComponent(id)}`);
 
     if (!response.ok)
       return handleHttpError(response);
 
     const data = await response.json();
 
-    // User exists, show welcome message
+    if (currentRequestId !== requestId) {
+      return;
+    }
+
     await showWelcomeUser(data.name);
 
     hideLoading();
@@ -95,7 +101,6 @@ async function fetchFiltered(id) {
 
   } catch (error) {
     hideLoading();
-    welcomeUser.textContent = "";
     renderError(error);
   }
 }
@@ -153,10 +158,10 @@ async function handleFormSubmit(e) {
   const userId = document.getElementById("userId").value.trim();
   const num = Number(userId);
 
-   if (!Number.isInteger(num)) {
-     renderError({ message: "Invalid User ID. User ID should be number." });
-     return;
-   }
+  if (!Number.isInteger(num)) {
+    renderError({ message: "Invalid User ID. User ID should be number." });
+    return;
+  }
 
   await fetchFiltered(num);
   document.getElementById("userId").value = "";
