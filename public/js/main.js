@@ -3,6 +3,12 @@ const cards = document.getElementById("cards");
 const loading = document.getElementById("loading");
 const welcomeUser = document.getElementById("welcomeUser");
 
+const footer = document.createElement("footer");
+const year = new Date().getFullYear();
+
+footer.textContent = `Copyright©${year} All rights reserved.`;
+document.body.appendChild(footer);
+
 function showLoading() {
   loading.classList.remove("hidden");
   cards.innerHTML = "";

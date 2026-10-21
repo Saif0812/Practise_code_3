@@ -2,32 +2,37 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/styles/main.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checking user's</title>
+  <meta name="description" content="User information from JsonPlaceholder endpoint" />
+  <link rel="stylesheet" href="/styles/main.css" />
 </head>
 
 <body>
+  <header>
+    <h1>User Information</h1>
+  </header>
+  <main>
   <div class="container">
-    <h1>Checking JsonPlaceholder Endpoint ✌️</h1>
+    <h2>Checking JsonPlaceholder Endpoint ✌️</h2>
 
     <form id="form" class="form">
       <label for="userId">User ID:</label>
       <input type="text" id="userId" name="userId" placeholder="Enter User ID number" required>
       <button type="submit" class="form-submit">Go</button>
-      <div id="welcomeUser" class="welcome-user"></div>
     </form>
     <br>
     <h3>User info:</h3>
+    <br>
+    <div id="welcomeUser" class="welcome-user"></div>
     <ul id="cards" class="cards">
       <!-- Dynamically generated list will appear here -->
     </ul>
-
     <!-- Loading spinner -->
     <div id="loading" class="loading hidden"></div>
   </div>
-
+</main>
   <script type="module" src="/js/main.js"></script>
 </body>
 
