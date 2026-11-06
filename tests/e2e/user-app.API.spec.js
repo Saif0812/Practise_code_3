@@ -5,6 +5,7 @@ test.describe("User Application E2E", () => {
   test("should load a random user on startup", async ({ page }) => {
 
     await page.goto("http://localhost:3000");
+    await page.locator("#welcomeUser").waitFor({ state: "visible" });
     await expect(page.locator("#welcomeUser")).toContainText("Welcome");
 
     const cards = page.locator("#cards");
@@ -34,7 +35,12 @@ test.describe("User Application E2E", () => {
 
     await page.goto("http://localhost:3000");
     await page.fill("#userId", "1");
+    
+    const responsePromise = page.waitForResponse( response => response.url().includes("/api/filter?id=1") && response.status() === 200 );
+    
     await page.click(".form-submit");
+    await responsePromise;
+    
     await expect(page.locator("#userId")).toHaveValue("");
   });
 
